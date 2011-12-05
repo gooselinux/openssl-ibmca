@@ -1,0 +1,24 @@
+diff -up openssl-ibmca-1.1/configure.in.make openssl-ibmca-1.1/configure.in
+--- openssl-ibmca-1.1/configure.in.make	2010-04-22 14:26:23.000000000 +0200
++++ openssl-ibmca-1.1/configure.in	2010-04-22 14:28:26.000000000 +0200
+@@ -25,8 +25,11 @@ fi
+ AC_MSG_CHECKING([libica-2.x])
+ AC_CHECK_HEADER([ica_api.h], [], \
+              AC_MSG_ERROR([*** libica header not found]))
++# libica is dlopened, so do not add it to LIBS
++save_LIBS=$LIBS
+ AC_CHECK_LIB(ica, ica_open_adapter, [], \
+              AC_MSG_ERROR([*** libica-2.x library not found]), [-lssl])
++LIBS=$save_LIBS
+ 
+ # OpenSSL location
+ AC_MSG_CHECKING([OpenSSL])
+diff -up openssl-ibmca-1.1/Makefile.am.make openssl-ibmca-1.1/Makefile.am
+--- openssl-ibmca-1.1/Makefile.am.make	2010-01-26 12:51:47.000000000 +0100
++++ openssl-ibmca-1.1/Makefile.am	2010-04-22 14:25:13.000000000 +0200
+@@ -1,4 +1,4 @@
+ lib_LTLIBRARIES=libibmca.la
+ 
+-libibmca_la_LDFLAGS=@LIBS@ -lc
+ libibmca_la_SOURCES=e_ibmca.c e_ibmca.h e_ibmca_err.c
++libibmca_la_LDFLAGS=-module -version-info 0:1:0 -shared -no-undefined -avoid-version

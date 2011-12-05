@@ -1,0 +1,12 @@
+diff -up openssl-ibmca-1.1/e_ibmca.c.soname openssl-ibmca-1.1/e_ibmca.c
+--- openssl-ibmca-1.1/e_ibmca.c.soname	2010-04-22 13:18:48.000000000 +0200
++++ openssl-ibmca-1.1/e_ibmca.c	2010-04-22 13:19:11.000000000 +0200
+@@ -113,7 +113,7 @@ typedef struct ibmca_sha256_ctx {
+ } IBMCA_SHA256_CTX;
+ #endif
+ 
+-static const char *IBMCA_LIBNAME = "ica";
++static const char *IBMCA_LIBNAME = "ica-2.0";
+ 
+ static int cipher_nids[] = { 
+ 	NID_des_ecb,
